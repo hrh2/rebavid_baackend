@@ -8,14 +8,15 @@ const { verifyToken, extractUserIdFromToken } = require('../Middlewares/Token-ve
 let gfs;
 
 // Initialize GridFS
-initializeGridFS()
-  .then(gridFS => {
-    gfs = gridFS;
-    console.log('gfs initialized successfully');
+initializeGridFS({ chunkSizeBytes: 10240 }) // 10KB chunk size
+  .then(gfs => {
+    console.log('GridFS initialized successfully');
+    // Do whatever you need with gfs
   })
   .catch(err => {
     console.error('Error initializing GridFS:', err);
   });
+
 
   const storage = multer.memoryStorage();
   const upload = multer({ storage });

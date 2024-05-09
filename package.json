@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm start",
     "start": "node index.js"
-    },
+  },
   "author": "Hirwa Rukundo hope",
   "license": "ISC",
   "dependencies": {
@@ -24,6 +24,7 @@
     "multer-gridfs-storage": "^5.0.2",
     "nodemailer": "^6.9.13",
     "randomatic": "^3.1.1",
-    "socket.io": "^4.7.5"
+    "socket.io": "^4.7.5",
+    "stream": "^0.0.2"
   }
 }
