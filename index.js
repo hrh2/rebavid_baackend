@@ -22,6 +22,13 @@ app.use('/api/v1/signup',signupRoute)
 app.use('/api/v1/verify',verificationRoute)
 app.use('/api/v1/user',userRoute)
 app.use('/api/v1/admin',adminRoute)
+app.get('/',async(req,res)=>{
+   try{
+    return res.status(200).send("online")
+   }catch(error){
+    return res.status(500).send(error.message)
+   }
+})
 
 // Start server
 app.listen(PORT, () => {
