@@ -9,7 +9,7 @@ let gfs;
 
 // Initialize GridFS
 initializeGridFS({ chunkSizeBytes: 10240 }) // 10KB chunk size
-  .then(gfs => {
+  .then(gridFS => {
     gfs=gridFS;
     console.log('GridFS initialized successfully');
     // Do whatever you need with gfs
