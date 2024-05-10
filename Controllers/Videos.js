@@ -203,6 +203,23 @@ initializeGridFS({ chunkSizeBytes: 10240 }) // 10KB chunk size
       return res.status(500).json({ message: error.message });
     }
   });
+  
+  router.get('/admin/:videoType',verifyToken, async (req, res) => {
+    try {
+      const {videoType} = req.params
+      // Access the database from the existing connection
+      const db = mongoose.connection.db;
+      const collection = db.collection('fs.files');
+      
+      // Filter files based on metadata.type: "content"
+      const documents = await collection.find({ "metadata.type": "content","metadata.vidtype": videoType }).toArray();
+      const documentIds = documents.map(doc => ({id:doc._id,name: doc.metadata.name,vidtype: doc.metadata.vidtype}));
+      res.json(documentIds);
+    } catch (error) {
+      console.error('Error:', error);
+      return res.status(500).json({ message: error.message });
+    }
+  });
  
   
 module.exports = router;
