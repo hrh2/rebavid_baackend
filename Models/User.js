@@ -28,7 +28,6 @@ const validateUser = (data) => {
      return schema.validate(data);
 };
 
-const User=mongoose.model('User',userSchema);
 
 const validatePasswordComplexity = (data)=>{
      const schema = joi.object({
@@ -39,12 +38,13 @@ const validatePasswordComplexity = (data)=>{
 
 const validateOnLogin = (data) => {
      const schema = joi.object({
-        email_phone: joi.string().required().label('Email/Phone'),
-        password: joi.string().required().label('Password'),
+          email_phone: joi.string().required().label('Email/Phone'),
+          password: joi.string().required().label('Password'),
      });
      return schema.validate(data);
-  };
-  
+};
+
+const User=mongoose.model('User',userSchema);
 module.exports={
      User,
      validateUser,

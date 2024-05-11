@@ -11,6 +11,7 @@ const signupRoute = require('./Controllers/Signup');
 const verificationRoute = require('./Controllers/Verification')
 const adminRoute = require('./Controllers/Admin')
 const userRoute = require('./Controllers/User')
+const messageRoute = require('./Controllers/Message')
 
 const app = express();
 app.use(cors())
@@ -22,6 +23,7 @@ app.use('/api/v1/signup',signupRoute)
 app.use('/api/v1/verify',verificationRoute)
 app.use('/api/v1/user',userRoute)
 app.use('/api/v1/admin',adminRoute)
+app.use('/api/v1/message',messageRoute)
 app.get('/',async(req,res)=>{
    try{
     return res.status(200).send("online")

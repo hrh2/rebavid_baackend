@@ -13,7 +13,11 @@ router.post('/', async (req, res) => {
         if (error) {
             return res.status(400).json({ message: error.details[0].message });
         }
-
+        
+        const availability= await User.findOne({email:req.body.email})
+        if (availability) {
+            return res.status(400).json({ message: "That email has been used by another user" });
+        }        
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(req.body.password, salt);
         const user = new User({
@@ -50,10 +54,8 @@ router.post('/admin', async (req, res) => {
         if (error) {
             return res.status(400).json({ message: error.details[0].message });
         }
-
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(req.body.password, salt);
-        
         const admin = new Admin({
             name: req.body.name,
             email: req.body.email,
