@@ -18,7 +18,7 @@ async function sendVerificationEmail(email, verificationCode,role) {
     const mailOptions = {
         from: process.env.MAILER,
         to: email,
-        subject: 'anfilms Verification Code',
+        subject: 'REBAvid Verification Code',
         text: 'Below is a code for your email validation',
         html: `
             <h1>${verificationCode}</h1>
