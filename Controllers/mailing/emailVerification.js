@@ -24,7 +24,7 @@ async function sendVerificationEmail(email, verificationCode,role) {
             <h1>${verificationCode}</h1>
             <p>
             Click the following link to verify:
-            <a href="https://api-anfilms.onrender.com/api/v1/verify/email?email=${email}&code=${verificationCode}&role=${role}">Verify</a>
+            <a href="https://rebavid-auth-api.onrender.com/api/v1/verify/email?email=${email}&code=${verificationCode}&role=${role}">Verify</a>
             </p>
         `
     };
