@@ -5,7 +5,7 @@ require('dotenv').config();
 
 router.post('/us', async (req, res) => {
     try {
-        const { error } =await validateUser(req.body);
+        const { error } =await validateMessage(req.body);
         if (error) {
             return res.status(400).json({ message: error.details[0].message });
         }
