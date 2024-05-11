@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Message,validateMessage } = require('../Models/Message');
+const { verifyToken } = require('../Middlewares/Token-verification');
 require('dotenv').config();
 
 router.post('/us', async (req, res) => {
