@@ -1,7 +1,7 @@
 require('dotenv').config();
 const router = require('express').Router();
-const { User,validateOnLogin} = require('../Models/User');
-const {Admin} =require('../Models/Admin')
+const { User, validateOnLogin } = require('../../Models/User');
+const { Admin } = require('../../Models/Admin')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
@@ -50,7 +50,7 @@ router.post('/admin', async (req, res) => {
       const token = jwt.sign({ _id: admin._id, email: admin.email, phone: admin.phone }, process.env.JWT);
       return res.status(200).send({ token: token });
    } catch (err) {
-     return res.status(500).send({ message: err.message });
+      return res.status(500).send({ message: err.message });
    }
 });
 

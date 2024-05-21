@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const { User, validateUser } = require('../Models/User');
-const {Admin,validateAdmin} = require('../Models/Admin')
+const { User, validateUser } = require('../../Models/User');
+const { Admin, validateAdmin } = require('../../Models/Admin')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { generateOneTimeCode } = require('../Models/OneTimeCode');
-const {sendVerificationEmail} = require('./mailing/emailVerification')
+const { generateOneTimeCode } = require('../../Models/OneTimeCode');
+const { sendVerificationEmail } = require('../MAILING/emailVerification')
 require('dotenv').config();
 
 router.post('/', async (req, res) => {
@@ -13,11 +13,11 @@ router.post('/', async (req, res) => {
         if (error) {
             return res.status(400).json({ message: error.details[0].message });
         }
-        
-        const availability= await User.findOne({email:req.body.email})
+
+        const availability = await User.findOne({ email: req.body.email })
         if (availability) {
             return res.status(400).json({ message: "That email has been used by another user" });
-        }        
+        }
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(req.body.password, salt);
         const user = new User({
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
         const verificationCode = await generateOneTimeCode(req.body.email);
 
         try {
-            await sendVerificationEmail(req.body.email, verificationCode,"User");
+            await sendVerificationEmail(req.body.email, verificationCode, "User");
             // Save the user
             await user.save();
             // Generate JWT token
@@ -69,7 +69,7 @@ router.post('/admin', async (req, res) => {
         const verificationCode = await generateOneTimeCode(req.body.email);
 
         try {
-            await sendVerificationEmail(req.body.email, verificationCode,"Admin");
+            await sendVerificationEmail(req.body.email, verificationCode, "Admin");
             // Save the user
             await admin.save();
             // Generate JWT token

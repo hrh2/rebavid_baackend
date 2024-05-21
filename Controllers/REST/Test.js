@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const multer = require('multer');
-const initializeGridFS = require('../DB/connector');
+const initializeGridFS = require('../../DB/connector');
 const router = require('express').Router();
 
 let gfs;

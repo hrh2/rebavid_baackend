@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const { validateOneTimeCode } = require('../Models/OneTimeCode');
-const {User} = require('../Models/User'); // Import your User model
-const { Admin } = require('../Models/Admin');
+const { validateOneTimeCode } = require('../../Models/OneTimeCode');
+const { User } = require('../../Models/User'); // Import your User model
+const { Admin } = require('../../Models/Admin');
 
 // Define a route to handle email verification
-router.get('/email',async (req, res) => {
+router.get('/email', async (req, res) => {
     try {
-        const { email,code,role } = req.query;
+        const { email, code, role } = req.query;
         const { valid, message } = await validateOneTimeCode(email, code);
         if (valid) {
             // If the email validation is successful, update the user's isVerified property
             let user;
-            if(role=="Admin"){
+            if (role == "Admin") {
                 user = await Admin.findOneAndUpdate(
                     { email: email },
                     { $set: { isVerified: true } },
                     { new: true }
                 );
-            }else{
+            } else {
                 user = await User.findOneAndUpdate(
                     { email: email },
                     { $set: { isVerified: true } },

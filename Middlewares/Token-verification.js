@@ -12,7 +12,20 @@ function verifyToken(req, res, next) {
      });
 }
 
-
+const verifySocketsToken = (socket, next) => {
+     const token = socket.handshake.auth.token;
+     if (!token) {
+         return next(new Error('Authentication error: Token missing'));
+     }
+     try {
+         const decoded = jwt.verify(token, process.env.JWT);
+         socket.decoded = decoded; // Attach the decoded token to the socket for later use
+         next();
+     } catch (error) {
+         next(new Error('Authentication error: Invalid token'));
+     }
+ };
+ 
 function extractUserIdFromToken(req) {
      const authHeader = req.headers.authorization;
      const token = authHeader ? authHeader.split(' ')[1] : null;
@@ -24,4 +37,15 @@ function extractUserIdFromToken(req) {
 }
 
 
-module.exports = {verifyToken,extractUserIdFromToken};
+function extractRoledFromToken(req) {
+     const authHeader = req.headers.authorization;
+     const token = authHeader ? authHeader.split(' ')[1] : null;
+
+     const decodedToken = jwt.decode(token);
+     const role = decodedToken ? decodedToken.role : null;
+
+     return role;
+}
+
+
+module.exports = {verifyToken,extractUserIdFromToken,extractRoledFromToken,verifySocketsToken};
