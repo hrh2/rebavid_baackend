@@ -13,21 +13,12 @@ const verificationRoute = require('./Controllers/REST/Verification');
 const adminRoute = require('./Controllers/REST/Admin');
 const userRoute = require('./Controllers/REST/User');
 const messageRoute = require('./Controllers/REST/Message');
-
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server, {
-  cors: {
-    origin: '*',
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Authorization", "X-My-Custom-Header"],
-    credentials: true
-  }
-});
+
 const setupSocket = require('./Controllers/REALTIME/sockets');
 
 app.use(cors());
-
 app.use(express.json({ limit: '1500mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1500mb' }));
 
@@ -40,17 +31,17 @@ app.use('/api/v1/admin', adminRoute);
 app.use('/api/v1/message', messageRoute);
 
 app.get('/', async (req, res) => {
-  try {
-    return res.status(200).send("online");
-  } catch (error) {
-    return res.status(500).send(error.message);
-  }
+    try {
+        return res.status(200).send("online");
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
 });
 
 // Setup Socket.IO
-setupSocket(io);
+setupSocket(server);
 
 // Start server
 server.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT}`);
+    console.log(`Server is running on port http://localhost:${PORT}`);
 });
