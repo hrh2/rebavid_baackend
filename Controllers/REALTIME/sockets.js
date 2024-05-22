@@ -10,14 +10,14 @@ function setupSocket(server) {
     });
 
     io.on('connection', (socket) => {
-        console.log('user online');
+        // console.log('user online');
         // Register your event handlers
         require('../REALTIME/SendMessages')(socket, io);
         require('../REALTIME/RecievingMessages')(socket, io);
         // require('./socketHandlers/otherModuleHandler')(socket, io);
 
         socket.on('disconnect', () => {
-            console.log('A user disconnected');
+            // console.log('A user disconnected');
         });
     });
 }
