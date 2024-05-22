@@ -11,11 +11,11 @@ let gfs;
 initializeGridFS({ chunkSizeBytes: 10240 }) // 10KB chunk size
   .then(gridFS => {
     gfs = gridFS;
-    console.log('GridFS initialized successfully');
+    // console.log('GridFS initialized successfully');
     // Do whatever you need with gfs
   })
   .catch(err => {
-    console.error('Error initializing GridFS:', err);
+    // console.error('Error initializing GridFS:', err);
   });
 
 const storage = multer.memoryStorage();
