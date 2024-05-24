@@ -8,7 +8,7 @@ const { verifyToken, extractUserIdFromToken } = require('../../Middlewares/Token
 let gfs;
 
 // Initialize GridFS
-initializeGridFS({ chunkSizeBytes: 10240 }) // 10KB chunk size
+initializeGridFS({ chunkSizeBytes: 100240 }) // 10KB chunk size
   .then(gridFS => {
     gfs = gridFS;
     // console.log('GridFS initialized successfully');
