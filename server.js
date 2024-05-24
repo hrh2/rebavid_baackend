@@ -18,7 +18,12 @@ const server = http.createServer(app);
 
 const setupSocket = require('./Controllers/REALTIME/sockets');
 
-app.use(cors());
+const corsOptions = {
+    // origin: '*',//(https://your-client-app.com)
+    // optionsSuccessStatus: 200,
+    // methods: ['GET', 'POST', 'PUT', 'DELETE']
+  };
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '1500mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1500mb' }));
 
@@ -43,5 +48,5 @@ setupSocket(server);
 
 // Start server
 server.listen(PORT, () => {
-    // console.log(`Server is running on port http://localhost:${PORT}`);
+    console.log(`Server is running on port http://localhost:${PORT}`);
 });
