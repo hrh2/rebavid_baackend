@@ -3,7 +3,6 @@ const { User, validateUser } = require('../../Models/User');
 const { Admin, validateAdmin } = require('../../Models/Admin')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { generateOneTimeCode } = require('../../Models/OneTimeCode');
 const { sendVerificationEmail } = require('../MAILING/emailVerification')
 require('dotenv').config();
 

@@ -2,37 +2,40 @@ const nodemailer = require('nodemailer');
 const { Resend } =require("resend");
 require('dotenv').config()
 const resend = new Resend(process.env.MAILER_TOKEN);
+const { generateOneTimeCode } = require('../../Models/OneTimeCode');
 
 
 
-/*onst transporter = nodemailer.createTransport({
-    service: 'hotmail',
-    host:"smtp.office365.com" ,
-    port: 587,
+
+// /*
+const transporter = nodemailer.createTransport({
+    // service: 'hotmail',
+    host:"smtp.gmail.com" ,
+    port: 465,
+    secure:true,
     auth: {
         user: process.env.MAILER,
         pass: process.env.MAILER_PASSWORD
     }
 });
-*/
+// */
 
-// Function to send verification email
-/*
-async function sendVerificationEmail(email, verificationCode,role) {
+async function sendVerificationEmail(email,role) {
+    const verificationCode = await generateOneTimeCode(email);
     const mailOptions = {
-        from: process.env.MAILER,
+        from:`REBAVID <${process.env.MAILER}>`,
         to: email,
         subject: 'REBAvid Verification Code',
         text: 'Below is a code for your email validation',
         html: `
-            <h1>${verificationCode}</h1>
+            <h1 color="#00ff00">${verificationCode}</h1>
             <p>
             Click the following link to verify:
-            <a href="https://rebavid-auth-api.onrender.com/api/v1/verify/email?email=${email}&code=${verificationCode}&role=${role}">Verify</a>
+            <a href="https://rebavid.ue.r.appspot.com/api/v1/verify/email?email=${email}&code=${verificationCode}&role=${role}">Verify</a>
             </p>
-        `
+            `
     };
-
+    
     return new Promise((resolve, reject) => {
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
@@ -42,7 +45,8 @@ async function sendVerificationEmail(email, verificationCode,role) {
             }
         });
     });
-}*/
+}
+/*
 async function sendVerificationEmail(email, role) {
     const verificationCode = await generateOneTimeCode(email);
     if (!process.env.MAILER) {
@@ -59,8 +63,8 @@ async function sendVerificationEmail(email, role) {
                     <h1>${verificationCode}</h1>
                     <p>
                         Click the following link to verify:
-                        <a href="https://rebavid-auth-api.onrender.com/api/v1/verify/email?email=${encodeURIComponent(email)}&code=${verificationCode}&role=${role}">Verify</a>
-                    </p>
+                        <a href="https://rebavid.ue.r.appspot.com/api/v1/verify/email?email=${encodeURIComponent(email)}&code=${verificationCode}&role=${role}">Verify</a>
+                        </p>
                 </div>
             `
         });
@@ -81,4 +85,7 @@ async function sendVerificationEmail(email, role) {
     }
 }
 
+*/
+
+// sendVerificationEmail("hopehirwa50@gmail.com","User")
 module.exports = {sendVerificationEmail}

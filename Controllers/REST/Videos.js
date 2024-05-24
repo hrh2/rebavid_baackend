@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const initializeGridFS = require('../../DB/connector');
 const router = require('express').Router();
-const { verifyToken, extractUserIdFromToken } = require('../../Middlewares/Token-verification');
+const { verifyToken, extractRoledFromToken} = require('../../Middlewares/Token-verification');
 
 
 let gfs;
@@ -24,6 +24,12 @@ const upload = multer({ storage });
 // Upload endpoint
 router.post('/uploads', verifyToken, upload.fields([{ name: 'video', maxCount: 1 }, { name: 'poster', maxCount: 1 }]), async (req, res) => {
   try {
+    
+    const role = extractRoledFromToken(req)
+    console.log(role);
+    if(role!="CEO"){
+      return res.status(400).json({message:'Sorry but the Currentry the CEO is the one allowed to upload video'})
+    }
     // Check if both files are uploaded
     if (!req.files['video'] || !req.files['poster']) {
       return res.status(400).json({ message: 'Both video and poster files are required' });
