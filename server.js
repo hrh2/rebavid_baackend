@@ -18,12 +18,18 @@ const server = http.createServer(app);
 
 const setupSocket = require('./Controllers/REALTIME/sockets');
 
-const corsOptions = {
-    // origin: '*',//(https://your-client-app.com)
-    // optionsSuccessStatus: 200,
-    // methods: ['GET', 'POST', 'PUT', 'DELETE']
-  };
-app.use(cors(corsOptions));
+// Define an array of allowed origins
+const allowedOrigins = [
+  'https://byose.vercel.app',
+  'https://byose.onrender.com',
+  `http://localhost:${PORT}`// Add your other origins here
+];
+
+// Apply CORS middleware with allowed origins
+app.use(cors({
+  origin: allowedOrigins
+}));
+
 app.use(express.json({ limit: '1500mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1500mb' }));
 
