@@ -3,5 +3,6 @@ env_variables:
   JWT: "an_videos12345"
   MAILER: "anfilms.rw@outlook.com"
   MAILER_PASSWORD: "anfilms@rw.com"
-  MONGODB_URL: "mongodb+srv://hirwa:1000005hope@cluster0.gqij2sf.mongodb.net/media"
+  # MONGODB_URL: "mongodb+srv://hirwa:1000005hope@cluster0.gqij2sf.mongodb.net/media"
+  MONGODB_URL: "mongodb+srv://hirwa:1000005hope@cluster0.a80ibje.mongodb.net/rebavid"
   # PORT: "5000"
