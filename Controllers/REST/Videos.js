@@ -11,11 +11,11 @@ let gfs;
 initializeGridFS({ chunkSizeBytes: 100240 }) // 10KB chunk size
   .then(gridFS => {
     gfs = gridFS;
-    // console.log('GridFS initialized successfully');
+    console.log('GridFS initialized successfully');
     // Do whatever you need with gfs
   })
   .catch(err => {
-    // console.error('Error initializing GridFS:', err);
+    console.error('Error initializing GridFS:', err);
   });
 
 const storage = multer.memoryStorage();
@@ -26,7 +26,7 @@ router.post('/uploads', verifyToken, upload.fields([{ name: 'video', maxCount: 1
   try {
     
     const role = extractRoledFromToken(req)
-    console.log(role);
+    // console.log(role);
     if(role!="CEO"){
       return res.status(400).json({message:'Sorry but the Currentry the CEO is the one allowed to upload video'})
     }

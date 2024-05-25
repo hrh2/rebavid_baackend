@@ -22,7 +22,7 @@ const setupSocket = require('./Controllers/REALTIME/sockets');
 const allowedOrigins = [
   'https://byose.vercel.app',
   'https://byose.onrender.com',
-  `http://localhost:${PORT}`// Add your other origins here
+  `http://localhost:3000`// Add your other origins here
 ];
 
 // Apply CORS middleware with allowed origins
